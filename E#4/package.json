@@ -1,0 +1,35 @@
+{
+  "name": "motorcycle-parts-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Serverless REST API for a motorcycle parts exchange (local DynamoDB + serverless-offline)",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:init": "cross-env DYNAMODB_ENDPOINT=http://localhost:8000 node scripts/init-dynamodb-local.js",
+    "db:seed": "cross-env DYNAMODB_ENDPOINT=http://localhost:8000 node scripts/seed-minimal.js",
+    "db:init:prod": "cross-env DYNAMODB_ENDPOINT=http://localhost:8000 PARTS_TABLE=motorcycle-parts-api-parts-prod node scripts/init-dynamodb-local.js",
+    "db:seed:prod": "cross-env DYNAMODB_ENDPOINT=http://localhost:8000 PARTS_TABLE=motorcycle-parts-api-parts-prod node scripts/seed-minimal.js",
+    "dev": "cross-env DYNAMODB_ENDPOINT=http://localhost:8000 serverless offline start",
+    "dev:3010": "cross-env DYNAMODB_ENDPOINT=http://localhost:8000 SLS_OFFLINE_HTTP_PORT=3010 serverless offline start",
+    "offline:prod": "cross-env DYNAMODB_ENDPOINT=http://localhost:8000 serverless offline start --stage prod",
+    "deploy:sim": "serverless package --stage prod",
+    "serverless:version": "serverless --version"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.699.0",
+    "@aws-sdk/lib-dynamodb": "^3.699.0",
+    "uuid": "^11.0.3"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "serverless": "3.40.0",
+    "serverless-offline": "13.9.0"
+  },
+  "overrides": {
+    "serverless": "3.40.0"
+  }
+}

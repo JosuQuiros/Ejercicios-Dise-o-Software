@@ -1,0 +1,67 @@
+service: motorcycle-parts-api
+
+# Pin Serverless CLI to v3 in package.json. v4+ may require `serverless login` even for offline.
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  stage: ${opt:stage, 'dev'}
+  region: ${env:AWS_REGION, 'us-east-1'}
+  environment:
+    PARTS_TABLE: ${self:service}-parts-${self:provider.stage}
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1"
+    # Local DynamoDB (Docker: docker compose up -d)
+    DYNAMODB_ENDPOINT: ${env:DYNAMODB_ENDPOINT, ''}
+
+plugins:
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    # Override with env if 3000 is busy: SLS_OFFLINE_HTTP_PORT=3010 npm run dev
+    httpPort: ${env:SLS_OFFLINE_HTTP_PORT, 3000}
+    # Avoid clashes with a leftover `serverless offline` Lambda listener
+    lambdaPort: 3102
+    noPrependStageInUrl: true
+
+functions:
+  createPart:
+    handler: src/handlers/createPart.handler
+    events:
+      - http:
+          path: parts
+          method: post
+          cors: true
+  listPartsByType:
+    handler: src/handlers/listPartsByType.handler
+    events:
+      - http:
+          path: parts
+          method: get
+          cors: true
+
+resources:
+  Resources:
+    PartsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.PARTS_TABLE}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: type
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: type-index
+            KeySchema:
+              - AttributeName: type
+                KeyType: HASH
+              - AttributeName: id
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
