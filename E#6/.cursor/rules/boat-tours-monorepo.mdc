@@ -1,0 +1,14 @@
+---
+description: Boat tours Micronaut monorepo — boundaries and conventions
+globs: "**/*"
+---
+
+# Boat tours monorepo
+
+- **Backend:** Two independent Micronaut apps: `tour-service` (REST `/tours`) and `guide-service` (REST `/guides`). Do not introduce a shared Java library module; keep duplication of DTOs/entities acceptable if needed for isolation.
+- **Layers per service:** `model` → `repository` → `service` → `controller` (and `controller.dto` for request bodies).
+- **Persistence:** H2 file DB + Flyway migrations only inside each service. Never point both services at the same H2 file.
+- **Frontend:** Lives in `frontend/`; use env or Vite proxy for API bases. Prefer Tailwind utility classes consistent with the existing dark/cyan layout.
+- **Scripts:** Prefer extending `tour-service/scripts`, `guide-service/scripts`, and `frontend/scripts` rather than ad-hoc one-off commands in documentation.
+
+When adding features, default to **new endpoints in the owning service** rather than cross-service Java calls; integrate at the **UI or HTTP** layer unless the assignment explicitly requires synchronous inter-service calls.

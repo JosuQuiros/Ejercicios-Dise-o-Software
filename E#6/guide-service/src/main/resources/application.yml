@@ -1,0 +1,36 @@
+micronaut:
+  application:
+    name: guide-service
+  server:
+    port: 8081
+    cors:
+      enabled: true
+      configurations:
+        web:
+          allowed-origins:
+            - http://localhost:5173
+            - http://127.0.0.1:5173
+            - http://localhost:4173
+            - http://127.0.0.1:4173
+          allowed-methods:
+            - GET
+            - POST
+            - OPTIONS
+          allowed-headers:
+            - "*"
+
+datasources:
+  default:
+    url: jdbc:h2:file:./data/guide-service-db;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE
+    driverClassName: org.h2.Driver
+    username: sa
+    password: ""
+
+flyway:
+  datasources:
+    default:
+      enabled: true
+
+logger:
+  levels:
+    com.boattours: INFO
