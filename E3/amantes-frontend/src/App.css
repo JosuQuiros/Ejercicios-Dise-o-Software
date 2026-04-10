@@ -1,0 +1,132 @@
+.layout {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+.header h1 {
+  margin: 0 0 0.35rem;
+  font-size: 1.75rem;
+  font-weight: 650;
+}
+
+.lede {
+  margin: 0;
+  color: #444;
+  max-width: 42rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 1.75rem;
+}
+
+@media (min-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.25rem 1.35rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e8e4df;
+}
+
+.card h2 {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.form input {
+  padding: 0.55rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid #cfc8c0;
+  font: inherit;
+}
+
+.form button {
+  margin-top: 0.25rem;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #2d6a4f;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.lista {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.lista li {
+  padding: 0.65rem 0.75rem;
+  background: #faf8f6;
+  border-radius: 8px;
+  border: 1px solid #ebe6e0;
+}
+
+.lista-vacia {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.meta {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  max-width: min(90vw, 420px);
+  font-size: 0.95rem;
+}
+
+.toast.ok {
+  background: #d8f3dc;
+  color: #1b4332;
+  border: 1px solid #95d5b2;
+}
+
+.toast.err {
+  background: #ffccd5;
+  color: #590d22;
+  border: 1px solid #ff8fa3;
+}
