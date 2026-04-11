@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ titulo }}</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 42rem; margin: 2rem auto; padding: 0 1rem; }
+    code { background: #f4f4f5; padding: 0.1rem 0.35rem; border-radius: 4px; }
+    ul { line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <h1>{{ titulo }}</h1>
+  <p>Monolito Django con capas <strong>modelo → repositorio → servicio → vista</strong>.</p>
+  <h2>API (JSON)</h2>
+  <ul>
+    <li><code>GET /fiestas</code> — listar fiestas con cupo disponible</li>
+    <li><code>POST /fiestas</code> — crear fiesta (nombre, ubicacion, capacidad, opcional latitud/longitud/descripcion)</li>
+    <li><code>GET /fiestas/ubicaciones</code> — todas las fiestas (para mapa)</li>
+    <li><code>GET /fiestas/{id}/invitaciones/pendientes</code></li>
+    <li><code>POST /fiestas/{id}/invitaciones</code> — solicitud con <code>nombre_invitado</code></li>
+    <li><code>POST /fiestas/{id}/invitaciones/{id}/aceptar</code></li>
+  </ul>
+  <h2>Frontends (desarrollo)</h2>
+  <ul>
+    <li>Invitados: <code>http://localhost:5173</code></li>
+    <li>Localización: <code>http://localhost:5174</code></li>
+  </ul>
+  <p><a href="/admin/">Administración Django</a></p>
+</body>
+</html>
